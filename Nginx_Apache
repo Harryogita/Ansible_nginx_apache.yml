@@ -1,0 +1,32 @@
+---
+ - hosts: all
+   name: play1 - run date command and script.sh
+   # remote_user: harry
+   become: true
+   #sudo_user: root
+   tasks:
+       - name: run date command
+         command: date
+       - name: copy script.sh file
+         copy:
+           src: /home/harry/Programs_basics/script.sh
+           dest: /home/harry/
+       - name: run script.sh
+         script: script.sh
+ #      shell: script.sh
+ #
+ - hosts: client
+   name: Install nginx and copy your index.html
+   become: true
+   tasks:
+       - name: install nginx here
+         apt:
+           name: nginx
+           state: latest
+
+ - hosts: client
+   name: Install apache2 and copy your code to index.html
+   become: true
+   tasks:
+        - name: install apache2
+          apt: name=apache2 state=present
